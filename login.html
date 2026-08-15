@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Log in</title>
+<style>
+  :root {
+    --bg: #F7F6F3;
+    --card: #FFFFFF;
+    --ink: #1C1B19;
+    --muted: #767268;
+    --line: #E4E1D9;
+    --accent: #2F5D50;
+    --accent-hover: #24483E;
+    --error: #B3441E;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: var(--ink);
+    padding: 24px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 380px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 40px 32px;
+    box-shadow: 0 1px 2px rgba(28,27,25,0.04), 0 8px 24px rgba(28,27,25,0.05);
+  }
+
+  .mark {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    background: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+  }
+
+  p.sub {
+    margin: 0 0 28px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--ink);
+  }
+
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 11px 13px;
+    font-size: 14px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #FCFBF9;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  input[type="email"]:focus,
+  input[type="password"]:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(47,93,80,0.12);
+  }
+
+  .field-error {
+    color: var(--error);
+    font-size: 12.5px;
+    margin-top: 6px;
+    display: none;
+  }
+
+  .field.invalid input {
+    border-color: var(--error);
+  }
+
+  .field.invalid .field-error {
+    display: block;
+  }
+
+  button {
+    margin-top: 8px;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    background: var(--accent);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+
+  button:hover { background: var(--accent-hover); }
+  button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .foot {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .foot a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .foot a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="mark"></div>
+    <h1>Log in</h1>
+    <p class="sub">Enter your details to access your account.</p>
+
+    <form id="loginForm" novalidate>
+      <div class="field" id="emailField">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required>
+        <div class="field-error">Enter a valid email address.</div>
+      </div>
+
+      <div class="field" id="passwordField">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="••••••••" required minlength="6">
+        <div class="field-error">Password must be at least 6 characters.</div>
+      </div>
+
+      <button type="submit">Log in</button>
+    </form>
+
+    <div class="foot">Don't have an account? <a href="#">Sign up</a></div>
+  </div>
+
+<script>
+  const form = document.getElementById('loginForm');
+  const emailField = document.getElementById('emailField');
+  const passwordField = document.getElementById('passwordField');
+  const email = document.getElementById('email');
+  const password = document.getElementById('password');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    let valid = true;
+
+    if (!email.checkValidity()) {
+      emailField.classList.add('invalid');
+      valid = false;
+    } else {
+      emailField.classList.remove('invalid');
+    }
+
+    if (!password.checkValidity()) {
+      passwordField.classList.add('invalid');
+      valid = false;
+    } else {
+      passwordField.classList.remove('invalid');
+    }
+
+    if (valid) {
+      alert('Logged in as ' + email.value);
+      // Hook up your real authentication logic here.
+    }
+  });
+</script>
+
+</body>
+</html>
